@@ -3,7 +3,6 @@
 #include <iostream>
 #include <cstring>
 #include <string>
-//#include <dynamic_cast>
 #include "TROOT.h"
 #include "TSystem.h"
 #include "TTree.h"
@@ -13,39 +12,41 @@
 using namespace std;
 //class base {
 //public:
-//  virtual voi func()
+//  virtual void func()
 
 //}
 //  class BinHistoFunc_New : public base {
+
 class BinHistoFunc_New {
 public:
   TFile *F;
-  virtual void hist;
-  TH2F *hist2;
-  //  string type;
+  TH2F *hist2; 
+  TObject *hist = new TObject;
+ //  string type;
   BinHistoFunc_New(std::string filename, std::string histname){
     F = TFile::Open(filename.c_str());
-    hist = (TH1F *)F->Get(histname.c_str());
+    //    hist = (TH1F *)F->Get(histname.c_str());
     hist2 = (TH2F *)F->Get(histname.c_str());
     //    type = histtype.c_str();   
   };
 
   float GetBinContent(void){ 
         float val;
+	//	base *hist 
 
 	//        if (dynamic_cast<TH1F *>(&hist)){
-	if (dynamic_cast<TH1*> (&hist){
+	if (TH1F *hnew = dynamic_cast<TH1*> (hist = (TH1F *)F->Get(histname.c_str()))){
 	//	if (TClass::InheritsFrom(TH1)){
 	    //	    F->Get(histname.c_str();
-	  int binsx = hist->GetNbinsX();
+	  int binsx = hnew->GetNbinsX();
 	  std::cout << "hi" << std::endl;
 	  std::cout << binsx << std::endl;
 	  for(int b = 1; b < binsx; b++){
-	    val = hist->GetBinContent(b);
+	    val = hnew->GetBinContent(b);
 	    std::cout << "val is " << val << std::endl;
 	    std::cout << "bin is " << b << std::endl;
 	          };
-        } else if (dynamic_cast<TH2F *>){
+	  } else if (dynamic_cast<TH2F *> (hist = (TH2F *)F->Get(histname.c_str())){
 	  int binsx = hist2->GetNbinsX();
 	  int binsy = hist2->GetNbinsY();
 	  for(int bx = 1; bx < binsx; bx++){
