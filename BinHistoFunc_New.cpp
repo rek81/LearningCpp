@@ -58,11 +58,25 @@ public:
 	}
       }
     }
+
+    else if (hist3 != 0){
+      int binsx = hist3->GetNbinsX();
+      int binsy = hist3->GetNbinsY();
+      int binsz = hist3->GetNbinsZ();
+      for(int bx = 1; bx < binsx; bx++){
+	for(int by = 1; by < binsy; by++){
+	  for(int bz = 1; bz < binsz; bz++){
+	    val = hist3->GetBinContent(bx, by, bz);
+	  std::cout << "val is " << val << std::endl;
+	  }
+	}
+      }
+    }
   
     else {}
     return val; 
   }
-  float GetBinContentByAxis(float xmin = 0 , float xmax = 0 , float ymin = 0, float ymax = 0) {
+  float GetBinContentByAxis(float xmin = 0 , float xmax = 0 , float ymin = 0, float ymax = 0, float zmin = 0, float zmax = 0) {
     float val;
     if (hist1){ 
       float Xmin = xmin;
@@ -95,18 +109,41 @@ public:
 	}
       }
     }
+    else if (hist3){
+      float Xmin = xmin;
+      float Xmax = xmax;
+      float Ymin = ymin;
+      float Ymax = ymax;
+      float Zmin = zmin;
+      float Zmax = zmax;
+      TAxis *xaxis = hist3->GetXaxis();
+      TAxis *yaxis = hist3->GetYaxis();
+      TAxis *zaxis = hist3->GetZaxis();
+      int bxmin = xaxis->FindBin(Xmin);
+      int bxmax = xaxis->FindBin(Xmax);
+      int bymin = yaxis->FindBin(Ymin);
+      int bymax = yaxis->FindBin(Ymax);
+      int bzmin = zaxis->FindBin(Zmin);
+      int bzmax = zaxis->FindBin(Zmax);
+      std::cout << "bins are~ xmin: " << bxmin << ", xmax: " << bxmax << ", ymin: " << bymin << ", ymax: " << bymax << ", zmin: " << bzmin << ", zmax: " << bzmax << std::endl;
+      for(int bx = bxmin; bx < bxmax; bx++){
+	for(int by = bymin; by < bymax; by++){
+	  for(int bz = bzmin; bz < bzmax; bz++){
+	    val = hist3->GetBinContent(bx, by, bz);
+	    std::cout << "val is " << val << std::endl;
+	  }
+	}
+      }
+    }
     else {}
     return val;
   }
 };
 
-BinHistoFunc_New *obj = new BinHistoFunc_New("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
-//BinHistoFunc_New obj("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
-float a = obj->GetBinContents();
-//return;
-//BinHistoFunc_New (){};
-//float a = obj.GetBinContentByAxis(1000, 1500);
-//BinHistoFunc_New obj2d =  BinHistoFunc_New("../2DhistoPlot/Hists_2dtest.root", "avgMassvsEta1");
-//float a = obj2d.GetBinContent();
-//float a = obj2d.GetBinContentByAxis(50, 100, -1.5, 1.5);
+//BinHistoFunc_New *obj = new BinHistoFunc_New("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
+//float a = obj->GetBinContents();
+//float a = obj->GetBinContentByAxis(1000, 1500);
+BinHistoFunc_New *obj2d =  new BinHistoFunc_New("../2DhistoPlot/Hists_2dtest.root", "avgMassvsEta1");
+//float a = obj2d->GetBinContents()
+float a = obj2d->GetBinContentByAxis(50, 100, -1.5, 1.5);
 
