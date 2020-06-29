@@ -16,6 +16,7 @@ public:
   TH1F *hist1;
   TH2F *hist2;
   TH3F *hist3;
+  BinHistoFunc_New(){};
   BinHistoFunc_New(std::string filename, std::string histname){
     std::cout << "in constructor" << std::endl;
     F = TFile::Open(filename.c_str());
@@ -30,7 +31,7 @@ public:
     std::cout << "histo3 in constructor is " << hist3 << std::endl;
   };
 
-  float GetBinContent(void){ 
+  float GetBinContents(void){ 
     std::cout << "hist1 is " << hist1 << std::endl;
     std::cout << "hist2 is " << hist2 << std::endl;
     std::cout << "hist3 is " << hist3 << std::endl;
@@ -52,7 +53,7 @@ public:
       int binsy = hist2->GetNbinsY();
       for(int bx = 1; bx < binsx; bx++){
 	for(int by = 1; by < binsy; by++){
-	  float val = hist2->GetBinContent(bx, by);
+	  val = hist2->GetBinContent(bx, by);
 	  std::cout << "val is " << val << std::endl;
 	}
       }
@@ -99,15 +100,13 @@ public:
   }
 };
 
-int main(){
-
 BinHistoFunc_New *obj = new BinHistoFunc_New("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
 //BinHistoFunc_New obj("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
-float a = obj->GetBinContent();
+float a = obj->GetBinContents();
 //return;
 //BinHistoFunc_New (){};
 //float a = obj.GetBinContentByAxis(1000, 1500);
 //BinHistoFunc_New obj2d =  BinHistoFunc_New("../2DhistoPlot/Hists_2dtest.root", "avgMassvsEta1");
 //float a = obj2d.GetBinContent();
 //float a = obj2d.GetBinContentByAxis(50, 100, -1.5, 1.5);
-}
+
