@@ -100,9 +100,10 @@ public:
 };
 
 
-BinHistoFunc_New obj =  BinHistoFunc_New("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
+//BinHistoFunc_New obj =  BinHistoFunc_New("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
+BinHistoFunc_New obs("/home/rek81/userArea/CMSSW_10_2_2/src/trigger_turn_on/Final_for_Analysis_Note/SingleMuon/HTcut900/outputs/triggerRatePlots_RunE.root", "HTTrigNum");
 float a = obj.GetBinContent();
 //float a = obj.GetBinContentByAxis(1000, 1500);
-//BinHistoFunc_New obj2d =  BinHistoFunc_New("2D", "../2DhistoPlot/Hists_2dtest.root", "avgMassvsEta1");
+//BinHistoFunc_New obj2d =  BinHistoFunc_New("../2DhistoPlot/Hists_2dtest.root", "avgMassvsEta1");
 //float a = obj2d.GetBinContent();
 //float a = obj2d.GetBinContentByAxis(50, 100, -1.5, 1.5);
